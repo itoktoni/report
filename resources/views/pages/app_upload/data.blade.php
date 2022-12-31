@@ -52,7 +52,8 @@
 			@php
 			$total_bersih = $table->count();
 			// $total_kotor = $kotor->where('kotor_nama_linen', $name)->sum('kotor_stock') ?? 0;
-			$total_kotor = $linen_kotor[$name]->sum('kotor_stock') ?? 0;
+			// $total_kotor = $linen_kotor[$name]->sum('kotor_stock') ?? 0;
+			$total_kotor = isset($linen_kotor[$name]) ? $linen_kotor[$name]->sum('kotor_stock') : 0;
 			$selisih = $total_bersih - $total_kotor;
 			$selisih_kurang = $selisih < 0 ? $selisih : 0;
 			$selisih_lebih = $selisih > 0 ? $selisih : 0;

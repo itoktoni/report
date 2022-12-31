@@ -3,8 +3,8 @@
 namespace App\Http\Services;
 
 use App\Dao\Interfaces\CrudInterface;
-use App\Dao\Models\Bersih;
-use App\Dao\Models\Kotor;
+use App\Dao\Models\AppBersih;
+use App\Dao\Models\AppKotor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Plugins\Alert;
@@ -20,11 +20,11 @@ class CreateAppUploadService extends CreateService
             $check = $repository->saveRepository($data->all());
 
             foreach(array_chunk($data->bersih, 500) as $insert_bersih){
-                Bersih::insert($insert_bersih);
+                AppBersih::insert($insert_bersih);
             }
 
             foreach(array_chunk($data->kotor, 500) as $insert_kotor){
-                Kotor::insert($insert_kotor);
+                AppKotor::insert($insert_kotor);
             }
 
             DB::commit();

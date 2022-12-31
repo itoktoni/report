@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Dao\Models\AppBersih;
+use App\Dao\Models\AppKotor;
 use App\Dao\Models\AppUpload;
-use App\Dao\Models\Bersih;
-use App\Dao\Models\Kotor;
 use App\Dao\Traits\ValidationTrait;
 use DateTimeImmutable;
 use Illuminate\Foundation\Http\FormRequest;
@@ -33,9 +33,9 @@ class AppUploadRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $auto_number = Query::autoNumber((new Bersih())->getTable(), Bersih::field_upload(), 'U' . date('Ymd'));
-        $this->importBersih($auto_number);
+        $auto_number = Query::autoNumber((new AppBersih())->getTable(), AppBersih::field_upload(), 'U' . date('Ymd'));
         // $this->fastExcel($auto_number);
+        $this->importBersih($auto_number);
         $this->importKotor($auto_number);
         return $this->merge([
             'bersih' => $this->bersih,
@@ -115,10 +115,10 @@ class AppUploadRequest extends FormRequest
                 $tanggal = $collection[$i][5];
 
                 $this->header = [
-                    Bersih::field_transaksi() => $no_transaksi,
-                    Bersih::field_rs() => $nama_rs,
-                    Bersih::field_lokasi() => $nama_lokasi,
-                    Bersih::field_tanggal() => date_format($tanggal, "Y-m-d H:i:s"),
+                    AppBersih::field_transaksi() => $no_transaksi,
+                    AppBersih::field_rs() => $nama_rs,
+                    AppBersih::field_lokasi() => $nama_lokasi,
+                    AppBersih::field_tanggal() => date_format($tanggal, "Y-m-d H:i:s"),
                 ];
 
                 continue;
@@ -126,11 +126,11 @@ class AppUploadRequest extends FormRequest
                 continue;
             } else {
                 $this->bersih[] = array_merge($this->header, [
-                    Bersih::field_jenis_linen() => $collection[$i][1],
-                    Bersih::field_kode_linen() => $collection[$i][4],
-                    Bersih::field_name() => $collection[$i][5],
-                    Bersih::field_rfid() => $collection[$i][6],
-                    Bersih::field_upload() => $auto_number,
+                    AppBersih::field_jenis_linen() => $collection[$i][1],
+                    AppBersih::field_kode_linen() => $collection[$i][4],
+                    AppBersih::field_name() => $collection[$i][5],
+                    AppBersih::field_rfid() => $collection[$i][6],
+                    AppBersih::field_upload() => $auto_number,
                 ]);
             }
         }
@@ -157,10 +157,10 @@ class AppUploadRequest extends FormRequest
                 if ($tanggal instanceof DateTimeImmutable) {
 
                     $this->header = [
-                        Bersih::field_transaksi() => $no_transaksi,
-                        Bersih::field_rs() => $nama_rs,
-                        Bersih::field_lokasi() => $nama_lokasi,
-                        Bersih::field_tanggal() => date_format($tanggal, "Y-m-d H:i:s"),
+                        AppBersih::field_transaksi() => $no_transaksi,
+                        AppBersih::field_rs() => $nama_rs,
+                        AppBersih::field_lokasi() => $nama_lokasi,
+                        AppBersih::field_tanggal() => date_format($tanggal, "Y-m-d H:i:s"),
                     ];
 
                     return;
@@ -168,11 +168,11 @@ class AppUploadRequest extends FormRequest
                     return;
                 } else {
                     $this->bersih[] = array_merge($this->header, [
-                        Bersih::field_jenis_linen() => $nama_lokasi,
-                        Bersih::field_kode_linen() => $total_pcs,
-                        Bersih::field_name() => $tanggal,
-                        Bersih::field_rfid() => $rfid,
-                        Bersih::field_upload() => $auto_number,
+                        AppBersih::field_jenis_linen() => $nama_lokasi,
+                        AppBersih::field_kode_linen() => $total_pcs,
+                        AppBersih::field_name() => $tanggal,
+                        AppBersih::field_rfid() => $rfid,
+                        AppBersih::field_upload() => $auto_number,
                     ]);
                 }
             });
@@ -195,7 +195,7 @@ class AppUploadRequest extends FormRequest
                 $this->rs = $linen;
             }
 
-            if ($linen == 'Tanggal Linen Bersih') {
+            if ($linen == 'Tanggal Linen AppBersih') {
                 for ($z = 1; $z < count($row); $z++) {
                     if ($row[$z] != '' and $row[$z] != ':') {
                         $this->tanggal_bersih = $this->toDate($row[$z]);
@@ -205,7 +205,7 @@ class AppUploadRequest extends FormRequest
 
             }
 
-            if ($linen == 'Tanggal Linen Kotor') {
+            if ($linen == 'Tanggal Linen AppKotor') {
 
                 for ($z = 1; $z < count($row); $z++) {
                     if ($row[$z] != '' and $row[$z] != ':') {
@@ -222,11 +222,11 @@ class AppUploadRequest extends FormRequest
                         $this->location[] = "Kosong";
                     } else if ($row[$x] == 'Linen') {
 
-                    } else if (str_contains($row[$x], 'Total Kotor')) {
+                    } else if (str_contains($row[$x], 'Total AppKotor')) {
                         break;
-                        // $this->location[] = 'Total Kotor';
-                    } else if (str_contains($row[$x], 'Total Bersih')) {
-                        // $this->location[] = 'Total Bersih';
+                        // $this->location[] = 'Total AppKotor';
+                    } else if (str_contains($row[$x], 'Total AppBersih')) {
+                        // $this->location[] = 'Total AppBersih';
                         // break;
                     } else {
                         $this->location[] = $row[$x];
@@ -240,13 +240,13 @@ class AppUploadRequest extends FormRequest
                     for ($y = 1; $y < count($row) - 3; $y++) {
                         if (is_int($row[$y])) {
                             $this->kotor[] = [
-                                Kotor::field_name() => $linen,
-                                Kotor::field_rs() => $this->rs,
-                                Kotor::field_lokasi() => $this->location[$y - 1],
-                                Kotor::field_stock() => $row[$y],
-                                Kotor::field_tanggal_kotor() => $this->tanggal_kotor,
-                                Kotor::field_tanggal_bersih() => $this->tanggal_bersih,
-                                Kotor::field_upload() => $auto_number,
+                                AppKotor::field_name() => $linen,
+                                AppKotor::field_rs() => $this->rs,
+                                AppKotor::field_lokasi() => $this->location[$y - 1],
+                                AppKotor::field_stock() => $row[$y],
+                                AppKotor::field_tanggal_kotor() => $this->tanggal_kotor,
+                                AppKotor::field_tanggal_bersih() => $this->tanggal_bersih,
+                                AppKotor::field_upload() => $auto_number,
                             ];
                         }
                     }

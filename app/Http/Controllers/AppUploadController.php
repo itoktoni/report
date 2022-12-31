@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Dao\Models\AppUpload;
-use App\Dao\Models\App;
 use App\Dao\Models\AppBersih;
 use App\Dao\Models\AppKotor;
 use App\Dao\Repositories\AppUploadRepository;
