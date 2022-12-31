@@ -205,7 +205,6 @@ return [
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         CacheableAuthUserServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
         LaravelWebConsoleServiceProvider::class,
         ProtoneMedia\LaravelFormComponents\Support\ServiceProvider::class,
     ],

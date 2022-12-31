@@ -2,9 +2,11 @@
 
 use App\Dao\Enums\MenuType;
 use App\Dao\Facades\EnvFacades;
+use App\Dao\Models\User;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
+use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +14,10 @@ use Plugins\Core;
 use Plugins\Helper;
 use Plugins\Query;
 use Plugins\Template;
-
+use LSNepomuceno\LaravelA1PdfSign\ManageCert;
+use LSNepomuceno\LaravelA1PdfSign\Sign\ManageCert as SignManageCert;
+use LSNepomuceno\LaravelA1PdfSign\Sign\SignaturePdf;
+use LSNepomuceno\LaravelA1PdfSign\Sign\ValidatePdfSignature;
 
 Route::get('console', [HomeController::class, 'console'])->name('console');
 
@@ -106,3 +111,45 @@ Route::post('upload_config', function (Request $request) {
     return $name;
 
 })->name('upload_config');
+
+Route::get('pdf', function(){
+
+    // try {
+    //     $cert = new SignManageCert;
+    //     $cert->fromPfx(public_path('storage/bill02.pfx'), 'lemon');
+    // } catch (\Throwable $th) {
+    //     dd($th->getMessage());
+    //     // TODO necessary
+    // }
+
+    // // Downloading signed file
+    // try {
+    //     $path = public_path('/storage/test.pdf');
+
+    //     $pdf = new SignaturePdf($path, $cert, SignaturePdf::MODE_DOWNLOAD);
+    //     return $pdf->signature(); // The file will be downloaded
+
+    // } catch (\Throwable $th) {
+    //     // TODO necessary
+    // }
+
+    try {
+        dd(ValidatePdfSignature::from(public_path('/storage/encrypt.pdf')));
+    } catch (\Throwable $th) {
+        dd($th->getMessage());
+    }
+
+
+    // // usersPdf is the view that includes the downloading content
+
+    // $certificate = 'file://'.storage_path().'/public/tcpdf.crt';
+
+    // $view = view()->make('sample', ['title'=> 'test']);
+    // $html_content = $view->render();
+    // // Set title in the PDF
+    // TCPDF::SetTitle("List of users");
+    // TCPDF::AddPage();
+    // TCPDF::writeHTML($html_content, true, false, true, false, '');
+    // // userlist is the name of the PDF downloading
+    // TCPDF::Output('userlist.pdf', 'D');
+});

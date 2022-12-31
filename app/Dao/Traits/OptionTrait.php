@@ -53,7 +53,7 @@ trait OptionTrait
             ->select(self::$option_model->fieldSearching(), self::$option_model->getKeyName())
             ->get()
             ->pluck( self::$option_model->fieldSearching(),  self::$option_model->getKeyName())
-            ;
+            ?? [];
         }
 
 
