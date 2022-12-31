@@ -49,14 +49,11 @@ trait OptionTrait
         }
         else{
 
-            $model = self::$option_model
+            self::$option_data = self::$option_model
             ->select(self::$option_model->fieldSearching(), self::$option_model->getKeyName())
-            ->get();
-            if($model){
-                return self::$option_data = $model->pluck( self::$option_model->fieldSearching(),  self::$option_model->getKeyName());
-            }
-
-            return [];
+            ->get()
+            ->pluck( self::$option_model->fieldSearching(),  self::$option_model->getKeyName())
+            ;
         }
 
 
