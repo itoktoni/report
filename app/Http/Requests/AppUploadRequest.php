@@ -48,12 +48,20 @@ class AppUploadRequest extends FormRequest
 
     private function toDate($date)
     {
-        $date = explode('/', $date);
-        $tanggal = $date[0];
-        $bulan = $this->toMonth($date[1]);
-        $tahun = $date[2];
+        if($date instanceof DateTimeImmutable){
+            return date_format($date, "Y-m-d");
+        }
+        else if(is_string($date)){
 
-        return $tahun . '-' . $bulan . '-' . $tanggal;
+            $date = explode('/', $date);
+            $tanggal = $date[0];
+            $bulan = $this->toMonth($date[1]);
+            $tahun = $date[2];
+            return $tahun . '-' . $bulan . '-' . $tanggal;
+        }
+        else{
+            return date('Y-m-d');
+        }
     }
 
     private function toMonth($month)
@@ -186,8 +194,7 @@ class AppUploadRequest extends FormRequest
             ->skip(1)
             ->getRows();
 
-        // dd($collection->skip(5)->first());
-
+        // dd($collection->skip(1)->take(10)->all());
         $collection->each(function ($row, $iteration) use ($auto_number) {
             $linen = $row[0];
 
@@ -195,7 +202,7 @@ class AppUploadRequest extends FormRequest
                 $this->rs = $linen;
             }
 
-            if ($linen == 'Tanggal Linen AppBersih') {
+            if ($linen == 'Tanggal Linen Bersih') {
                 for ($z = 1; $z < count($row); $z++) {
                     if ($row[$z] != '' and $row[$z] != ':') {
                         $this->tanggal_bersih = $this->toDate($row[$z]);
@@ -205,7 +212,7 @@ class AppUploadRequest extends FormRequest
 
             }
 
-            if ($linen == 'Tanggal Linen AppKotor') {
+            if ($linen == 'Tanggal Linen Kotor') {
 
                 for ($z = 1; $z < count($row); $z++) {
                     if ($row[$z] != '' and $row[$z] != ':') {
@@ -222,11 +229,11 @@ class AppUploadRequest extends FormRequest
                         $this->location[] = "Kosong";
                     } else if ($row[$x] == 'Linen') {
 
-                    } else if (str_contains($row[$x], 'Total AppKotor')) {
+                    } else if (str_contains($row[$x], 'Total Kotor')) {
                         break;
-                        // $this->location[] = 'Total AppKotor';
-                    } else if (str_contains($row[$x], 'Total AppBersih')) {
-                        // $this->location[] = 'Total AppBersih';
+                        // $this->location[] = 'Total Kotor';
+                    } else if (str_contains($row[$x], 'Total Bersih')) {
+                        // $this->location[] = 'Total Bersih';
                         // break;
                     } else {
                         $this->location[] = $row[$x];
