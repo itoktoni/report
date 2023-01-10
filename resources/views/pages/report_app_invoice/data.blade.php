@@ -34,7 +34,7 @@
 		<thead>
 			<tr>
 				<th width="1">No. </th>
-				<th style="width:200px" width="20">Nama Linen</th>
+				<th style="width:250px" width="20">Nama Linen</th>
 				@foreach($date as $key_name)
 				<th class="text-center">{{ Str::afterLast($key_name, '-') }}</th>
 				@endforeach
@@ -46,6 +46,10 @@
 			</tr>
 		</thead>
 		<tbody>
+			@php
+			$total_berat = 0;
+			@endphp
+
 			@forelse($linen as $name => $table)
 
 			<tr>
@@ -58,20 +62,39 @@
 				$qty = $table->where(ViewInvoice::field_tanggal(), $key_name)->sum(ViewInvoice::field_qty());
 				@endphp
 				<td class="text-right">{{ showValue($qty) }}</td>
+
 				@endforeach
 
 				@php
 				$summary = $table->first();
+				$berat = $summary->field_berat ?? 1;
+				$total_berat = $total_berat + $berat;
 				@endphp
 				<td>{{ $table->sum(ViewInvoice::field_qty()) }}</td>
-				<td>{{ $summary->field_berat }}</td>
+				<td>{{ $berat }}</td>
 				<td>{{ $table->sum(ViewInvoice::field_total_berat()) }}</td>
-				<td>{{ $summary->field_harga }}</td>
+				<td>{{ $summary->field_harga ?? 0 }}</td>
 				<td>{{ $table->sum(ViewInvoice::field_invoice()) }}</td>
 
 			</tr>
 		@empty
 		@endforelse
+		<tr>
+			<td colspan="2">Grand Total</td>
+			@foreach($date as $key_name)
+			@php
+				$total_qty = $data->where(ViewInvoice::field_tanggal(), $key_name)->sum(ViewInvoice::field_qty());
+			@endphp
+			<td>{{ $total_qty }}</td>
+			@endforeach
+			<td>{{ $data->sum(ViewInvoice::field_qty()) }}</td>
+			<td>{{ $total_berat }}</td>
+			<td>{{ $data->sum(ViewInvoice::field_total_berat()) }}</td>
+			<td>{{ $summary->field_harga ?? 0 }}</td>
+			<td>{{ $data->sum(ViewInvoice::field_invoice()) }}</td>
+
+		</tr>
+
 		</tbody>
 	</table>
 </div>

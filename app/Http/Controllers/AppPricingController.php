@@ -10,7 +10,6 @@ use App\Dao\Models\ViewLinen;
 use App\Dao\Models\ViewRs;
 use App\Dao\Repositories\PricingRepository;
 use App\Http\Requests\PricingRequest;
-use App\Http\Requests\RoleRequest;
 use App\Http\Services\CreateService;
 use App\Http\Services\SingleService;
 use App\Http\Services\UpdateRoleService;
@@ -46,7 +45,7 @@ class AppPricingController extends MasterController
         return Response::redirectBack($data);
     }
 
-    public function postUpdate($code, RoleRequest $request, UpdateRoleService $service)
+    public function postUpdate($code, PricingRequest $request, UpdateService $service)
     {
         $data = $service->update(self::$repository, $request, $code);
         return Response::redirectBack($data);
@@ -57,12 +56,10 @@ class AppPricingController extends MasterController
         $this->beforeForm();
         $this->beforeUpdate($code);
 
-        $data = $this->get($code, ['has_group']);
-        $selected = $data->has_group->pluck('system_group_code') ?? [];
+        $data = $this->get($code);
 
         return moduleView(modulePathForm(), $this->share([
             'model' => $data,
-            'selected' => $selected,
         ]));
     }
 

@@ -3,6 +3,7 @@
 namespace App\Dao\Models;
 
 use App\Dao\Builder\DataBuilder;
+use App\Dao\Entities\AppRsEntity;
 use App\Dao\Entities\PricingEntity;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
@@ -14,32 +15,26 @@ use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 use Illuminate\Support\Str;
 
-class AppPricing extends Model
+class AppRs extends Model
 {
-    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, PricingEntity, ActiveTrait, ActiveTrait, OptionTrait;
+    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, AppRsEntity, ActiveTrait, ActiveTrait, OptionTrait;
 
-    protected $table = 'app_pricing';
-    protected $primaryKey = 'pricing_code';
-    protected $keyType = 'string';
+    protected $table = 'app_rs';
+    protected $primaryKey = 'rs_id';
 
     protected $fillable = [
-        'pricing_code',
-        'pricing_nama',
-        'pricing_harga',
-        'pricing_berat',
-        'pricing_rs',
+        'rs_id',
+        'rs_nama',
+        'rs_harga',
     ];
 
     public $sortable = [
-        'pricing_nama',
-        'pricing_harga',
-        'pricing_berat',
-        'pricing_rs',
+        'rs_nama',
+        'rs_harga',
     ];
 
     protected $casts = [
-        'pricing_harga' => 'integer',
-        'pricing_berat' => 'double',
+        'rs_harga' => 'integer',
     ];
 
     protected $filters = [
@@ -58,10 +53,8 @@ class AppPricing extends Model
     {
         return [
             DataBuilder::build($this->field_primary())->name('Code')->show(false)->sort(),
-            DataBuilder::build($this->field_rs())->name('RS')->show(true)->sort(),
             DataBuilder::build($this->field_name())->name('Name')->show(true)->sort(),
-            DataBuilder::build($this->field_berat())->name('Berat')->show(true)->sort(),
-            // DataBuilder::build($this->field_harga())->name('Harga')->show(true)->sort(),
+            DataBuilder::build($this->field_harga())->name('Harga')->show(true)->sort(),
         ];
     }
 }

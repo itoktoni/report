@@ -40,10 +40,8 @@
                                     <td class="col-md-2 text-center column-action">
                                         <x-crud :model="$table" />
                                     </td>
-                                    <td>{{ $table->field_rs }}</td>
                                     <td>{{ $table->field_name }}</td>
                                     <td>{{ $table->field_berat }}</td>
-                                    {{-- <td>{{ $table->field_harga }}</td> --}}
                                 </tr>
                             @empty
                             @endforelse

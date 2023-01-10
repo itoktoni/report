@@ -26,40 +26,40 @@ class AppUploadRequest extends FormRequest
     public function validation(): array
     {
         return [
-            'file_bersih' => 'required',
-            'file_kotor' => 'required',
+            'file_bersih' => 'required|mimes:xlsx',
+            'file_kotor' => 'required|mimes:xlsx',
         ];
     }
 
-    public function prepareForValidation()
+    public function withValidator($validator)
     {
-        $auto_number = Query::autoNumber((new AppBersih())->getTable(), AppBersih::field_upload(), 'U' . date('Ymd'));
-        // $this->fastExcel($auto_number);
-        $this->importBersih($auto_number);
-        $this->importKotor($auto_number);
-        return $this->merge([
-            'bersih' => $this->bersih,
-            'kotor' => $this->kotor,
-            AppUpload::field_tanggal() => $this->tanggal_bersih,
-            AppUpload::field_name() => $auto_number,
-            AppUpload::field_rs() => $this->rs,
-        ]);
+        if (!$validator->fails()) {
+            $auto_number = Query::autoNumber((new AppBersih())->getTable(), AppBersih::field_upload(), 'U' . date('Ymd'));
+            // $this->fastExcel($auto_number);
+            $this->importBersih($auto_number);
+            $this->importKotor($auto_number);
+            return $this->merge([
+                'bersih' => $this->bersih,
+                'kotor' => $this->kotor,
+                AppUpload::field_tanggal() => $this->tanggal_bersih,
+                AppUpload::field_name() => $auto_number,
+                AppUpload::field_rs() => $this->rs,
+            ]);
+        }
     }
 
     private function toDate($date)
     {
-        if($date instanceof DateTimeImmutable){
+        if ($date instanceof DateTimeImmutable) {
             return date_format($date, "Y-m-d");
-        }
-        else if(is_string($date)){
+        } else if (is_string($date)) {
 
             $date = explode('/', $date);
             $tanggal = $date[0];
             $bulan = $this->toMonth($date[1]);
             $tahun = $date[2];
             return $tahun . '-' . $bulan . '-' . $tanggal;
-        }
-        else{
+        } else {
             return date('Y-m-d');
         }
     }
@@ -142,8 +142,6 @@ class AppUploadRequest extends FormRequest
                 ]);
             }
         }
-
-        dd(collect($this->bersih)->pluck('bersih_tanggal', 'bersih_kode_rfid'));
     }
 
     private function importBersih($auto_number)

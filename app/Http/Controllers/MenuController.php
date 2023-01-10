@@ -18,6 +18,7 @@ use App\Http\Services\SingleService;
 use App\Http\Services\UpdateMenuService;
 use App\Http\Services\UpdateRoutesService;
 use Coderello\SharedData\Facades\SharedData;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Plugins\Helper;
@@ -84,6 +85,14 @@ class MenuController extends MasterController
         return moduleView(modulePathForm(), $this->share([
             'model' => $data,
             'selected' => $selected,
+            'action' => $action,
+        ]));
+    }
+
+    public function xgetActionByController(Request $request)
+    {
+        $action = Helper::getFunction($request->system_menu_controller, $request->system_menu_code) ?? [];
+        return moduleView(modulePathForm('action'), $this->share([
             'action' => $action,
         ]));
     }

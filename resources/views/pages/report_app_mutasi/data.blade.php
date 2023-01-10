@@ -62,14 +62,17 @@
 			</tr>
 		</thead>
 		<tbody>
+			@php
+			$total_kotor = $total_bersih = $total_kurang = $total_lebih = $grand_total_kotor = $grand_total_bersih = $grand_total_kurang = $grand_total_lebih = 0;
+			@endphp
 			@forelse($linen as $name => $table)
-
+			@php
+				$sum_kurang = $sum_lebih = 0;
+			@endphp
 			<tr>
 				<td>{{ $loop->iteration }}</td>
 				<td>{{ $name }}</td>
-				@php
-					$sum_kurang = $sum_lebih = 0;
-				@endphp
+
 				@foreach($date as $key_name)
 
 				@php
@@ -83,12 +86,28 @@
 				$sum_kurang = $sum_kurang + $selisih_kurang;
 				$sum_lebih = $sum_lebih + $selisih_lebih;
 
+				$total_kotor = $total_kotor + $stock_kotor;
+				$total_bersih = $total_bersih + $stock_bersih;
+				$total_kurang = $total_kurang + $selisih_kurang;
+				$total_lebih = $total_lebih + $selisih_lebih;
+
+				$total_kotor = $total_kotor + $stock_kotor;
+				$total_bersih = $total_bersih + $stock_bersih;
+				$total_kurang = $total_kurang + $selisih_kurang;
+				$total_lebih = $total_lebih + $selisih_lebih;
+
+				$grand_total_kotor = $grand_total_kotor + $stock_kotor;
+				$grand_total_bersih = $grand_total_bersih + $stock_bersih;
+				$grand_total_kurang = $grand_total_kurang + $selisih_kurang;
+				$grand_total_lebih = $grand_total_lebih + $selisih_lebih;
+
 				@endphp
 					<td class="text-right">{{ showValue($stock_kotor) }}</td>
 					<td class="text-right">{{ showValue($stock_bersih) }}</td>
 					<td class="text-right">{{ $selisih < 0 ? $selisih : '' }}</td>
 					<td class="text-right">{{ $selisih > 0 ? $selisih : '' }}</td>
 				@endforeach
+
 				<td class="text-right">{{ $table->sum(ViewMutasi::field_stock_kotor()) }}</td>
 				<td class="text-right">{{ $table->sum(ViewMutasi::field_stock_bersih()) }}</td>
 				<td class="text-right">{{ $sum_kurang }}</td>
@@ -96,6 +115,15 @@
 			</tr>
 		@empty
 		@endforelse
+			<td class="text-left" colspan="2">Grand Total</td>
+			<td class="text-right">{{ $total_kotor }}</td>
+			<td class="text-right">{{ $total_bersih }}</td>
+			<td class="text-right">{{ $total_kurang }}</td>
+			<td class="text-right">{{ $total_lebih }}</td>
+			<td class="text-right">{{ $grand_total_kotor }}</td>
+			<td class="text-right">{{ $grand_total_bersih }}</td>
+			<td class="text-right">{{ $grand_total_kurang }}</td>
+			<td class="text-right">{{ $grand_total_lebih }}</td>
 		</tbody>
 	</table>
 </div>
