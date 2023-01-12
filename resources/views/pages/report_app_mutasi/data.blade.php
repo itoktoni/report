@@ -52,13 +52,13 @@
 				@foreach($date as $key_name)
 				<th class="text-center">KOTOR</th>
 				<th class="text-center">BERSIH</th>
-				<th class="text-center">KURANG</th>
-				<th class="text-center">LEBIH</th>
+				<th class="text-center">-</th>
+				<th class="text-center">+</th>
 				@endforeach
 				<th class="text-center">KOTOR</th>
 				<th class="text-center">BERSIH</th>
-				<th class="text-center">KURANG</th>
-				<th class="text-center">LEBIH</th>
+				<th class="text-center">-</th>
+				<th class="text-center">+</th>
 			</tr>
 		</thead>
 		<tbody>

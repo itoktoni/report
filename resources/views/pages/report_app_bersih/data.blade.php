@@ -40,8 +40,8 @@
 				@endforeach
 				<th>Total Bersih</th>
 				<th>Total Kotor</th>
-				<th>Kurang</th>
-				<th>Lebih</th>
+				<th>-</th>
+				<th>+</th>
 			</tr>
 		</thead>
 		<tbody>
