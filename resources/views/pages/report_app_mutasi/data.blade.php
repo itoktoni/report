@@ -91,11 +91,6 @@
 				$total_kurang = $total_kurang + $selisih_kurang;
 				$total_lebih = $total_lebih + $selisih_lebih;
 
-				$total_kotor = $total_kotor + $stock_kotor;
-				$total_bersih = $total_bersih + $stock_bersih;
-				$total_kurang = $total_kurang + $selisih_kurang;
-				$total_lebih = $total_lebih + $selisih_lebih;
-
 				$grand_total_kotor = $grand_total_kotor + $stock_kotor;
 				$grand_total_bersih = $grand_total_bersih + $stock_bersih;
 				$grand_total_kurang = $grand_total_kurang + $selisih_kurang;

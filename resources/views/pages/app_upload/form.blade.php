@@ -6,7 +6,7 @@
             </x-action>
 
             @bind($model)
-                <x-form-input col="4" type="date" label="Tanggal" name="tanggal" />
+                <x-form-input col="4" type="date" value="{{ date('Y-m-d') }}" label="Tanggal" name="tanggal" />
                 <x-form-upload col="4" name="file_bersih" />
                 <x-form-upload col="4" name="file_kotor" />
             @endbind

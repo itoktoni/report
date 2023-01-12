@@ -27,8 +27,8 @@ class AppUploadRequest extends FormRequest
     {
         return [
             'file_bersih' => 'required|mimes:xlsx',
-            'file_kotor' => 'required|mimes:xls',
-            'tanggal' => 'required',
+            'file_kotor' => 'required|mimes:xlsx',
+            'tanggal' => 'required'
         ];
     }
 
@@ -167,6 +167,7 @@ class AppUploadRequest extends FormRequest
                         AppBersih::field_transaksi() => $no_transaksi,
                         AppBersih::field_rs() => $nama_rs,
                         AppBersih::field_lokasi() => $nama_lokasi,
+                        // AppBersih::field_tanggal() => date_format($tanggal, "Y-m-d H:i:s"),
                         AppBersih::field_tanggal() => $this->tanggal,
                     ];
 

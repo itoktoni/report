@@ -92,11 +92,12 @@
 
 			@php
 				$total_invoice = $data->sum(ViewInvoice::field_invoice());
+				$total_harga = $summary->field_harga ?? 0;
 			@endphp
 			<td style="text-align: right">{{ $data->sum(ViewInvoice::field_qty()) }}</td>
 			<td style="text-align: right">{{ number_format($total_berat) }}</td>
 			<td style="text-align: right">{{ $data->sum(ViewInvoice::field_total_berat()) }}</td>
-			<td style="text-align: right">{{ number_format($summary->field_harga) ?? 0 }}</td>
+			<td style="text-align: right">{{ number_format($total_harga) ?? 0 }}</td>
 			<td style="text-align: right">{{ number_format($total_invoice) }}</td>
 
 		</tr>
