@@ -27,7 +27,8 @@ class AppUploadRequest extends FormRequest
     {
         return [
             'file_bersih' => 'required|mimes:xlsx',
-            'file_kotor' => 'required|mimes:xlsx',
+            'file_kotor' => 'required|mimes:xls',
+            'tanggal' => 'required',
         ];
     }
 
@@ -166,7 +167,7 @@ class AppUploadRequest extends FormRequest
                         AppBersih::field_transaksi() => $no_transaksi,
                         AppBersih::field_rs() => $nama_rs,
                         AppBersih::field_lokasi() => $nama_lokasi,
-                        AppBersih::field_tanggal() => date_format($tanggal, "Y-m-d H:i:s"),
+                        AppBersih::field_tanggal() => $this->tanggal,
                     ];
 
                     return;
@@ -249,8 +250,8 @@ class AppUploadRequest extends FormRequest
                                 AppKotor::field_rs() => $this->rs,
                                 AppKotor::field_lokasi() => $this->location[$y - 1],
                                 AppKotor::field_stock() => $row[$y],
-                                AppKotor::field_tanggal_kotor() => $this->tanggal_kotor,
-                                AppKotor::field_tanggal_bersih() => $this->tanggal_bersih,
+                                AppKotor::field_tanggal_kotor() => $this->tanggal,
+                                AppKotor::field_tanggal_bersih() => $this->tanggal,
                                 AppKotor::field_upload() => $auto_number,
                             ];
                         }
