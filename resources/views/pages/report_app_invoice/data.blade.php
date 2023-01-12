@@ -38,11 +38,11 @@
 				@foreach($date as $key_name)
 				<th class="text-center">{{ Str::afterLast($key_name, '-') }}</th>
 				@endforeach
-				<th class="text-center">Qty</th>
-				<th class="text-center">Berat (Kg)</th>
-				<th class="text-center">Total (Kg)</th>
-				<th class="text-center">Harga</th>
-				<th style="width:100px;text-right" class="text-center">Total Invoice</th>
+				<th style="text-align: right">Qty</th>
+				<th style="text-align: right">Berat (Kg)</th>
+				<th style="text-align: right">Total (Kg)</th>
+				<th style="text-align: right">Harga</th>
+				<th style="width:100px;text-align:right" class="text-center">Total Invoice</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -69,12 +69,14 @@
 				$summary = $table->first();
 				$berat = $summary->field_berat ?? 1;
 				$total_berat = $total_berat + $berat;
+				$harga = $summary->field_harga ?? 0;
+				$total_harga = $table->sum(ViewInvoice::field_invoice()) ?? 0;
 				@endphp
-				<td>{{ $table->sum(ViewInvoice::field_qty()) }}</td>
-				<td>{{ $berat }}</td>
-				<td>{{ $table->sum(ViewInvoice::field_total_berat()) }}</td>
-				<td>{{ $summary->field_harga ?? 0 }}</td>
-				<td>{{ $table->sum(ViewInvoice::field_invoice()) }}</td>
+				<td style="text-align:right">{{ $table->sum(ViewInvoice::field_qty()) }}</td>
+				<td style="text-align:right">{{ $berat }}</td>
+				<td style="text-align:right">{{ $table->sum(ViewInvoice::field_total_berat()) }}</td>
+				<td style="text-align:right">{{ number_format($harga) }}</td>
+				<td style="text-align:right">{{ number_format($total_harga) }}</td>
 
 			</tr>
 		@empty
@@ -87,11 +89,15 @@
 			@endphp
 			<td>{{ $total_qty }}</td>
 			@endforeach
-			<td>{{ $data->sum(ViewInvoice::field_qty()) }}</td>
-			<td>{{ $total_berat }}</td>
-			<td>{{ $data->sum(ViewInvoice::field_total_berat()) }}</td>
-			<td>{{ $summary->field_harga ?? 0 }}</td>
-			<td>{{ $data->sum(ViewInvoice::field_invoice()) }}</td>
+
+			@php
+				$total_invoice = $data->sum(ViewInvoice::field_invoice());
+			@endphp
+			<td style="text-align: right">{{ $data->sum(ViewInvoice::field_qty()) }}</td>
+			<td style="text-align: right">{{ number_format($total_berat) }}</td>
+			<td style="text-align: right">{{ $data->sum(ViewInvoice::field_total_berat()) }}</td>
+			<td style="text-align: right">{{ number_format($summary->field_harga) ?? 0 }}</td>
+			<td style="text-align: right">{{ number_format($total_invoice) }}</td>
 
 		</tr>
 
