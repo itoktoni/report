@@ -54,10 +54,9 @@
 
 @if(request()->get('action') == 'excel')
     @php
-        $name = request()->get('report_name') ?? 'data';
-        $file_name =  : $name.'.xls';
+        $name = request()->get('code') ? request()->get('code').'.xls' : 'excel.xls';
         header('Content-Type: application/force-download');
-        header('Content-disposition: attachment; filename='.$file_name);
+        header('Content-disposition: attachment; filename='.$name);
         header("Pragma: ");
         header("Cache-Control: ");
     @endphp
