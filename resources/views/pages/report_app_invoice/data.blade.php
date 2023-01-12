@@ -67,7 +67,7 @@
 
 				@php
 				$summary = $table->first();
-				$berat = $summary->field_berat ?? 1;
+				$berat = $summary->field_berat ?? 0;
 				$total_berat = $total_berat + $berat;
 				$harga = $summary->field_harga ?? 0;
 				$total_harga = $table->sum(ViewInvoice::field_invoice()) ?? 0;
