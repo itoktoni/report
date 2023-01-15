@@ -28,7 +28,6 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.4",
         "livewire/livewire": "^2.10",
-        "lsnepomuceno/laravel-a1-pdf-sign": "^1.0",
         "mehradsadeghi/laravel-filter-querystring": "^1.1",
         "msztorc/laravel-env": "^1.2",
         "rennokki/laravel-eloquent-query-cache": "^3.3",
