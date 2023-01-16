@@ -56,7 +56,8 @@
     @php
         // $name = request()->get('code') ? request()->get('code').'.xls' : 'excel.xls';
         $name = request()->get('report_name') ? request()->get('report_name') : 'excel';
-        $name = $name.'.xls';
+        $rs = request()->get('nama_rs') ? request()->get('nama_rs') : '';
+        $name = $name.' '.$rs.'.xls';
         header('Content-Type: application/force-download');
         header('Content-disposition: attachment; filename='.$name);
         header("Pragma: ");

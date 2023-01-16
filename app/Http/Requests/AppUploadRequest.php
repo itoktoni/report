@@ -205,7 +205,8 @@ class AppUploadRequest extends FormRequest
             if ($linen == 'Tanggal Linen Bersih') {
                 for ($z = 1; $z < count($row); $z++) {
                     if ($row[$z] != '' and $row[$z] != ':') {
-                        $this->tanggal_bersih = $this->toDate($row[$z]);
+                        $this->tanggal_bersih = $this->tanggal;
+                        // $this->tanggal_bersih = $this->toDate($row[$z]);
                         break;
                     }
                 }
@@ -216,7 +217,8 @@ class AppUploadRequest extends FormRequest
 
                 for ($z = 1; $z < count($row); $z++) {
                     if ($row[$z] != '' and $row[$z] != ':') {
-                        $this->tanggal_kotor = $this->toDate($row[$z]);
+                        $this->tanggal_kotor = $this->tanggal;
+                        // $this->tanggal_kotor = $this->toDate($row[$z]);
                         break;
                     }
                 }
