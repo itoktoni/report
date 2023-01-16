@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Dao\Models\AppBersih;
+use App\Dao\Models\AppKotor;
 use App\Dao\Models\Bersih;
 use App\Dao\Models\Kotor;
 use App\Dao\Models\Upload;
@@ -82,24 +84,43 @@ class ReportAppBersihController extends MinimalController
 
         $this->data = self::$repository->getPrint()->get();
 
+        $this->bersih = AppBersih::where(AppBersih::field_tanggal(),'>=', request()->get('start_date'))
+        ->where(AppBersih::field_tanggal(),'<=', request()->get('end_date'))
+        ->get();
+
+        $this->kotor = AppKotor::where(AppKotor::field_tanggal_bersih(),'>=', request()->get('start_date'))
+        ->where(AppKotor::field_tanggal_bersih(),'<=', request()->get('end_date'))
+        ->get();
+
+
         $location = $linen = [];
-        if($this->data){
+        if($this->bersih){
 
-            $location = $this->data->mapToGroups(function ($item, $key) {
-                return [$item[ViewMutasi::field_lokasi()] => $item];
-            })->sortKeys();
+            $location = $this->bersih->mapToGroups(function ($item, $key) {
+                return [$item['bersih_lokasi'] => $item];
+            })->sortKeys();;
 
-            $linen = $this->data->mapToGroups(function ($item, $key) {
-                return [$item[ViewMutasi::field_name()] => $item];
-            })->sortKeys();
+            $linen = $this->bersih->mapToGroups(function ($item, $key) {
+                return [$item['bersih_nama_linen'] => $item];
+            })->sortKeys();;
 
         }
 
-        return moduleView(modulePathPrint(), [
-            'model' => $this->data->first(),
-            'data' => $this->data,
+        if($this->kotor){
+
+            $linen_kotor = $this->kotor->mapToGroups(function ($item, $key) {
+                return [$item['kotor_nama_linen'] => $item];
+            });
+
+        }
+
+        return moduleView(modulePathPrint(), $this->share([
+            'model' => $this->bersih->first(),
             'linen' => $linen,
+            'linen_kotor' => $linen_kotor,
+            'bersih' => $this->bersih,
+            'kotor' => $this->kotor,
             'location' => $location
-        ]);
+        ]));
     }
 }
