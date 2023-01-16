@@ -43,7 +43,7 @@ class ReportAppMutasiController extends MinimalController
         return moduleView(modulePathPrint(), $this->share([
             'model' => $this->data->first(),
             'data' => $this->data,
-            'linen' => $linen,
+            'linen' => $linen->sortKeys(),
             'date' => $date
         ]));
     }

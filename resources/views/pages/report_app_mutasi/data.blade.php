@@ -1,4 +1,8 @@
-<table border="0" class="header">
+<img width="200" style="position: absolute;left:1%;top:20px"
+    src="{{ env('APP_LOGO') ? url('storage/'.env('APP_LOGO')) : url('assets/media/image/logo.png') }}"
+    alt="logo">
+
+<table border="0" class="header" style="margin-left: 20%">
 	<tr>
 		<td></td>
 		<td colspan="10">
@@ -7,7 +11,6 @@
 			</h3>
 		</td>
 		<td rowspan="3">
-			<img width="200" style="position: absolute;left:40%;top:20px" src="{{ env('APP_LOGO') ? url('storage/'.env('APP_LOGO')) : url('assets/media/image/logo.png') }}" alt="logo">
 		</td>
 	</tr>
 	<tr>

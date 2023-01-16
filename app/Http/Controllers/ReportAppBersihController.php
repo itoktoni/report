@@ -113,7 +113,6 @@ class ReportAppBersihController extends MinimalController
             });
 
         }
-
         return moduleView(modulePathPrint(), $this->share([
             'model' => $this->bersih->first(),
             'linen' => $linen,
