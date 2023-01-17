@@ -34,7 +34,7 @@ class ReportAppInvoiceController extends MinimalController
             $date = $this->data->unique(ViewInvoice::field_tanggal())->pluck(ViewInvoice::field_tanggal());
             $linen = $this->data->mapToGroups(function ($item, $key) {
                 return [$item[ViewInvoice::field_name()] => $item];
-            });
+            })->sortKeys();
 
         }
 
