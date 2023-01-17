@@ -84,4 +84,14 @@ class AppUpload extends Model
     {
         return $this->hasOne(User::class, User::field_primary(), self::field_user());
     }
+
+    public static function boot()
+    {
+        parent::deleting(function ($model) {
+            AppBersih::where(AppBersih::field_name(), $model->field_name)->delete();
+            AppKotor::where(AppKotor::field_name(), $model->field_name)->delete();
+        });
+
+        parent::boot();
+    }
 }
