@@ -38,7 +38,10 @@
                                             value="{{ $table->field_primary }}">
                                     </td>
                                     <td class="col-md-2 text-center column-action">
-                                        <x-crud :model="$table" />
+                                        <x-crud :model="$table">
+                                            <x-button module="getPrint" key="{{ $table->field_name }}" color="primary"
+                                                icon="printer" />
+                                        </x-crud>
                                     </td>
                                     <td>{{ $table->field_primary }}</td>
                                     <td>{{ $table->field_name }}</td>

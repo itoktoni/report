@@ -4,7 +4,7 @@
 
 <table border="0" class="header" style="margin-left: 20%">
     <tr>
-        <td></td>
+        <td colspan="2"></td>
         <td colspan="10">
             <h3>
                 LAPORAN SERAH TERIMA LINEN BERSIH
@@ -14,7 +14,7 @@
         </td>
     </tr>
     <tr>
-        <td></td>
+        <td colspan="2"></td>
         <td colspan="10">
             <h3>
                 RUMAH SAKIT : {{ $model->field_rs ?? '' }}
@@ -22,7 +22,7 @@
         </td>
     </tr>
     <tr>
-        <td></td>
+        <td colspan="2"></td>
         <td colspan="10">
             <h3>
                 Tanggal : {{ date('d F Y') }}

@@ -4,17 +4,17 @@
 
 <table border="0" class="header" style="margin-left: 20%">
 	<tr>
-		<td></td>
+		<td colspan="2"></td>
 		<td colspan="10">
 			<h3>
 				<b>LAPORAN MUTASI KOTOR BERSIH</b>
 			</h3>
 		</td>
-		<td rowspan="3">
+		<td>
 		</td>
 	</tr>
 	<tr>
-		<td></td>
+		<td colspan="2"></td>
 		<td colspan="10">
 			<h3>
 				RUMAH SAKIT : {{ $model->field_rs ?? '' }}
@@ -22,7 +22,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td></td>
+		<td colspan="2"></td>
 		<td colspan="10">
 			<h3>
 				Tanggal : {{ $date->first() }} - {{ $date->last() }}

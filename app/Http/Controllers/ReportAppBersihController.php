@@ -86,11 +86,11 @@ class ReportAppBersihController extends MinimalController
 
         $this->bersih = AppBersih::where(AppBersih::field_tanggal(),'>=', request()->get('start_date'))
         ->where(AppBersih::field_tanggal(),'<=', request()->get('end_date'))
-        ->get();
+        ->where(AppBersih::field_rs(), request()->get('nama_rs'))->get();
 
         $this->kotor = AppKotor::where(AppKotor::field_tanggal_bersih(),'>=', request()->get('start_date'))
         ->where(AppKotor::field_tanggal_bersih(),'<=', request()->get('end_date'))
-        ->get();
+        ->where(AppBersih::field_rs(), request()->get('nama_rs'))->get();
 
 
         $location = $linen = [];
