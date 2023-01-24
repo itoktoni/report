@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dao\Models\AppRs;
 use App\Dao\Repositories\AppLinenRepository;
 use App\Http\Requests\GeneralRequest;
 use App\Http\Requests\LinenRequest;
@@ -18,6 +19,17 @@ class AppLinenController extends MasterController
     {
         self::$repository = self::$repository ?? $repository;
         self::$service = self::$service ?? $service;
+    }
+
+    protected function beforeForm(){
+
+        $rs = AppRs::getOptions(true)
+        ->pluck(AppRs::field_name(), AppRs::field_name())
+        ->prepend('- Select RS - ', '');
+
+        self::$share = [
+            'rs' => $rs,
+        ];
     }
 
     public function postCreate(GeneralRequest $request, CreateService $service)

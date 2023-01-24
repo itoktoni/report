@@ -40,6 +40,7 @@
                                     <td class="col-md-2 text-center column-action">
                                         <x-crud :model="$table" />
                                     </td>
+                                    <td>{{ $table->field_id_rs ?? '' }}</td>
                                     <td>{{ $table->field_name }}</td>
                                     <td>{{ $table->field_berat }}</td>
                                 </tr>

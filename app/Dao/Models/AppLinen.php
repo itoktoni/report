@@ -14,10 +14,11 @@ use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 use Illuminate\Support\Str;
+use Kirschbaum\PowerJoins\PowerJoins;
 
 class AppLinen extends Model
 {
-    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, AppLinenEntity, ActiveTrait, ActiveTrait, OptionTrait;
+    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, AppLinenEntity, ActiveTrait, ActiveTrait, OptionTrait, PowerJoins;
 
     protected $table = 'app_linen';
     protected $primaryKey = 'linen_id';
@@ -26,6 +27,7 @@ class AppLinen extends Model
         'linen_id',
         'linen_nama',
         'linen_berat',
+        'linen_nama_rs',
     ];
 
     public $sortable = [
@@ -53,8 +55,15 @@ class AppLinen extends Model
     {
         return [
             DataBuilder::build($this->field_primary())->name('Code')->show(false)->sort(),
+            DataBuilder::build($this->field_id_rs())->name('Rs')->show(false)->sort(),
+            DataBuilder::build(AppRs::field_name())->name('Rs')->show(true)->sort(),
             DataBuilder::build($this->field_name())->name('Name')->show(true)->sort(),
             DataBuilder::build($this->field_berat())->name('Berat')->show(true)->sort(),
         ];
+    }
+
+    public function has_rs()
+    {
+        return $this->hasOne(AppRs::class, AppRs::field_primary(), self::field_id_rs());
     }
 }

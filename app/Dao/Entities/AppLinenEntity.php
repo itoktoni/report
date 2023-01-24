@@ -35,4 +35,14 @@ trait AppLinenEntity
     {
         return $this->{$this->field_berat()};
     }
+
+    public static function field_id_rs()
+    {
+        return 'linen_nama_rs';
+    }
+
+    public function getFieldIdRsAttribute()
+    {
+        return $this->{$this->field_id_rs()};
+    }
 }
