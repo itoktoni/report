@@ -7,7 +7,7 @@
                 <input type="hidden" name="report_name" value="Lap Mutasi">
                 <x-form-input col="3" type="date" value="{{ date('Y-m-d') }}" label="Tanggal Awal" name="start_date" />
                 <x-form-input col="3" type="date" value="{{ date('Y-m-d') }}" label="Tanggal Akhir" name="end_date" />
-                <x-form-select col="6" name="nama_rs" :options="$rs" />
+                <x-form-select col="6" name="nama_rs" class="search" :options="$rs" />
             @endbind
 
         </x-form>

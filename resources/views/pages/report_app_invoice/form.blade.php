@@ -5,7 +5,7 @@
                 <input type="hidden" name="report_name" value="Laporan Invoice">
                 <x-form-input col="3" type="date" value="{{ date('Y-m-d') }}" label="Tanggal Awal" name="start_date" />
                 <x-form-input col="3" type="date" value="{{ date('Y-m-d') }}" label="Tanggal Akhir" name="end_date" />
-                <x-form-select col="6" name="inv_nama_rs" :options="$rs" />
+                <x-form-select col="6" class="search" name="inv_nama_rs" :options="$rs" />
             @endbind
 
         </x-form>
