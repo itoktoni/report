@@ -15,6 +15,7 @@ use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Plugins\Core;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
+use Illuminate\Support\Str;
 
 class SystemMenu extends Model
 {
@@ -88,9 +89,12 @@ class SystemMenu extends Model
         });
 
         parent::saving(function($model){
-            $model->{SystemMenu::field_primary()} = Core::getControllerName($model->{SystemMenu::field_controller()});
             if(empty($model->{SystemMenu::field_url()}) && ($model->{SystemMenu::field_type()} == MenuType::Menu)){
+                $model->{SystemMenu::field_primary()} = Core::getControllerName($model->{SystemMenu::field_controller()});
                 $model->{SystemMenu::field_url()} = Core::getControllerName($model->{SystemMenu::field_controller()});
+            }
+            else{
+                $model->{SystemMenu::field_primary()} = Str::snake($model->{SystemMenu::field_name()});
             }
         });
         parent::boot();

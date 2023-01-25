@@ -46,6 +46,22 @@ class AccessMiddleware
         $menu = (array)Query::getmenu($action_route) ?? [];
         if(request()->segment(1) != 'home'){
             $group = Query::groups(true);
+
+            if(!$group->contains('system_group_code', request()->segment(2))){
+                Alert::error(ERROR_PERMISION);
+                abort(402, ERROR_PERMISION);
+            }
+            else if($group != 'home' && request()->segment(3) == 'default'){
+                $select_group = $group
+                ->where('system_group_code', request()->segment(2))->first();
+
+                if($has_menu = $select_group->has_menu){
+                    if(!$has_menu->contains('system_menu_url', request()->segment(4))){
+                        Alert::error(ERROR_PERMISION);
+                        abort(402, ERROR_PERMISION);
+                    }
+                }
+            }
         }
         else{
             $group = Query::groups(auth()->user()->role);
@@ -70,7 +86,6 @@ class AccessMiddleware
                 ->where(SystemPermision::field_code(), $action_code);
 
                 $check_role = $check->where(SystemPermision::field_role(), auth()->user()->role);
-
                 if($check_role->count() > 0){
                     Alert::error(ERROR_PERMISION);
                     abort(402, ERROR_PERMISION);
