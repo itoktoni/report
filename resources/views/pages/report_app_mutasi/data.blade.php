@@ -114,10 +114,18 @@
 		@empty
 		@endforelse
 			<td class="text-left" colspan="2">Grand Total</td>
-			<td class="text-right">{{ $total_kotor }}</td>
-			<td class="text-right">{{ $total_bersih }}</td>
-			<td class="text-right">{{ $total_kurang }}</td>
-			<td class="text-right">{{ $total_lebih }}</td>
+			@foreach($date as $key_name)
+
+			@php
+			$minus = $data->where('tanggal', $key_name)->where('selisih', '<', 0)->sum('selisih');
+			$plus = $data->where('tanggal', $key_name)->where('selisih', '>=', 0)->sum('selisih');
+			@endphp
+
+			<td class="text-right">{{ $data->where('tanggal', $key_name)->sum('stock_kotor') }}</td>
+			<td class="text-right">{{ $data->where('tanggal', $key_name)->sum('stock_bersih') }}</td>
+			<td class="text-right">{{ $minus }}</td>
+			<td class="text-right">{{ $plus }}</td>
+			@endforeach
 			<td class="text-right">{{ $grand_total_kotor }}</td>
 			<td class="text-right">{{ $grand_total_bersih }}</td>
 			<td class="text-right">{{ $grand_total_kurang }}</td>
