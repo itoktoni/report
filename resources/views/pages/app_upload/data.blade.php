@@ -25,7 +25,7 @@
         <td></td>
         <td colspan="10">
             <h3>
-                Tanggal : {{ \Carbon\Carbon::parse($model->upload_tanggal)->format('d F Y') ?? date('d F Y') }}
+                Tanggal : {{ \Carbon\Carbon::parse($model->bersih_tanggal)->format('d F Y') ?? date('d F Y') }}
             </h3>
         </td>
     </tr>

@@ -47,6 +47,10 @@ class AppUpload extends Model
     public $timestamps = true;
     public $incrementing = true;
 
+    protected $casts = [
+        'upload_created_by' => 'integer',
+    ];
+
     const CREATED_AT = 'upload_created_at';
     const UPDATED_AT = 'upload_updated_at';
     const DELETED_AT = 'upload_deleted_at';
