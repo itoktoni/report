@@ -11,7 +11,7 @@ class UserLevel extends Enum implements LocalizedEnum
     use StatusTrait;
 
     const Pengguna = 1;
-    const Teknisi = 2;
+    const Supervisor = 2;
     const Admin = 50;
     const Developer = 100;
 }
