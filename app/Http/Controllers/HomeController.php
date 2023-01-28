@@ -10,6 +10,8 @@ use Plugins\Template;
 use App\Charts\dashboard;
 use App\Dao\Enums\TicketStatus;
 use App\Dao\Models\TicketSystem;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class HomeController extends Controller
 {
@@ -25,6 +27,21 @@ class HomeController extends Controller
         }
     }
 
+    private function unzipBackup($file)
+    {
+        $zip = new ZipArchive;
+        $res = $zip->open(
+            Storage::disk('local')->path('OBSESIMAN/' . $file)
+        );
+        if ($res === TRUE) {
+            $zip->extractTo(Storage::disk('local')->path('OBSESIMAN/test.sql'));
+            $zip->close();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -32,6 +49,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        $lastFile = collect(Storage::disk('storage')->allFiles('OBSESIMAN'))->last();
+
         if(auth()->check() && auth()->user()->active == false){
             return redirect()->route('login');
         }
