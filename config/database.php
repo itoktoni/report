@@ -86,6 +86,7 @@ return [
                 \PDO::ATTR_EMULATE_PREPARES => true
             ],
             'dump' => [
+                'add_extra_option' => '-h '. env('DB_HOST_SERVER', 'forge').' -u ' . env('DB_USERNAME_SERVER', 'forge'),
                 'useSingleTransaction' => true,
                 'excludeTables' => [
                     'telescope_entries',
