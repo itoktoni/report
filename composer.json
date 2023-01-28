@@ -33,6 +33,7 @@
         "rennokki/laravel-eloquent-query-cache": "^3.3",
         "spatie/laravel-backup": "^8.1",
         "spatie/simple-excel": "^3.0",
+        "spresnac/laravel-artisan-database-helper": "^1.0",
         "touhidurabir/laravel-model-sanitize": "^1.1",
         "wildside/userstamps": "^2.2"
     },
