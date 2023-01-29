@@ -19,6 +19,7 @@
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "hammerstone/fast-paginate": "^0.1.10",
+        "ifsnop/mysqldump-php": "^2.9",
         "izniburak/laravel-auto-routes": "1.6.0",
         "joedixon/laravel-translation": "^2.1",
         "kirschbaum-development/eloquent-power-joins": "^2.6",
@@ -31,9 +32,7 @@
         "mehradsadeghi/laravel-filter-querystring": "^1.1",
         "msztorc/laravel-env": "^1.2",
         "rennokki/laravel-eloquent-query-cache": "^3.3",
-        "spatie/laravel-backup": "^8.1",
         "spatie/simple-excel": "^3.0",
-        "spresnac/laravel-artisan-database-helper": "^1.0",
         "touhidurabir/laravel-model-sanitize": "^1.1",
         "wildside/userstamps": "^2.2"
     },

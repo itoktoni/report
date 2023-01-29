@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Ifsnop\Mysqldump as IMysqldump;
+use Illuminate\Support\Facades\Storage;
 
 class MySqlDump extends Command
 {
@@ -11,7 +13,7 @@ class MySqlDump extends Command
      *
      * @var string
      */
-    protected $signature = 'db:dump';
+    protected $signature = 'db:backup';
 
     /**
      * The console command description.
@@ -27,23 +29,23 @@ class MySqlDump extends Command
      */
     public function handle()
     {
-        $ds = DIRECTORY_SEPARATOR;
+        $this->info('Backup Start');
+        $name = date('Y-m-d-His').'_backup_database';
 
-        $host = env('DB_HOST_SERVER');
-        $username = env('DB_USERNAME_SERVER');
-        $password = env('DB_PASSWORD_SERVER');
-        $database = env('DB_DATABASE_SERVER');
+        try {
 
-        $ts = time();
+            $dumpSettingsDefault = [
+                'compress' => 'Gzip',
+            ];
 
-        $path = database_path() . $ds . 'backups' . $ds . date('Y', $ts) . $ds . date('m', $ts) . $ds . date('d', $ts) . $ds;
-        $file = date('Y-m-d-His', $ts) . '-dump-' . $database . '.sql';
-        $command = sprintf('mysqldump -h %s -u %s -p\'%s\' %s > %s', $host, $username, $password, $database, $path . $file);
+            $dump = new IMysqldump\Mysqldump('mysql:host='.env('DB_HOST_SERVER').';dbname='.env('DB_DATABASE_SERVER').'', env('DB_USERNAME_SERVER'), env('DB_PASSWORD_SERVER'), $dumpSettingsDefault);
+            $dump->start(__DIR__.'../../../../'.env('BACKUP_PATH').$name.'.gzip');
 
-        if (!is_dir($path)) {
-            mkdir($path, 0755, true);
+            $this->info('Backup Finish');
+
+        } catch (\Exception $e) {
+            $errror = 'mysqldump-php error: ' . $e->getMessage();
+            $this->error($errror);
         }
-
-        exec($command);
     }
 }

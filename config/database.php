@@ -64,10 +64,10 @@ return [
             ]) : [ \PDO::ATTR_EMULATE_PREPARES => true],
         ],
 
-        'server' => [
+        'test' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST_SERVER', '127.0.0.1'),
+            'host' => '174.138.16.66',
             'port' => env('DB_PORT_SERVER', '3306'),
             'database' => env('DB_DATABASE_SERVER', 'forge'),
             'username' => env('DB_USERNAME_SERVER', 'forge'),
@@ -84,26 +84,6 @@ return [
                 \PDO::ATTR_EMULATE_PREPARES => true
             ]) : [
                 \PDO::ATTR_EMULATE_PREPARES => true
-            ],
-            'dump' => [
-                'add_extra_option' => '-h '. env('DB_HOST_SERVER', 'forge').' -u ' . env('DB_USERNAME_SERVER', 'forge'),
-                'useSingleTransaction' => true,
-                'excludeTables' => [
-                    'telescope_entries',
-                    'telescope_entries_tags',
-                    'telescope_monitoring',
-                    'view_balance',
-                    'view_balance_detail',
-                    'view_history_linen',
-                    'view_kotor_bersih',
-                    'view_linen',
-                    'view_min_max',
-                    'view_opname',
-                    'view_opname_register',
-                    'view_pemakaian_linen',
-                    'view_stock',
-                    'view_stock_linen',
-                ]
             ],
         ],
 

@@ -64,11 +64,6 @@ return [
             'url' => env('AWS_URL'),
         ],
 
-        'backup' => [
-            'driver' => 'local',
-            'root' =>  __DIR__.env('BACKUP_PATH'),
-        ],
-
     ],
 
 ];
