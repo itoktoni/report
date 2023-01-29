@@ -207,6 +207,8 @@ return [
         CacheableAuthUserServiceProvider::class,
         LaravelWebConsoleServiceProvider::class,
         ProtoneMedia\LaravelFormComponents\Support\ServiceProvider::class,
+
+        App\Providers\WebDavServiceProvider::class,
     ],
 
     /*
