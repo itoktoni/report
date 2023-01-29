@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Plugins\Core;
@@ -159,13 +160,6 @@ Route::get('pdf', function(){
 
 Route::get('backup', function(){
 
-    $client = new Client([
-        'baseUri' => 'https://owncloud.obsesiman.my.id/remote.php/webdav',
-        'userName' => 'backup',
-        'password' => '085351m4n123!'
-        ]);
-        $adapter = new WebDAVAdapter($client);
-        $filesystem = new Filesystem($adapter);
-
+    Artisan::call('db:backup');
 
 });
