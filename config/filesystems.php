@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'backup' => [
+            'driver' => 'webdav',
+            'baseUri' => env('BACKUP_URL'),
+            'userName' => env('BACKUP_USERNAME'),
+            'password' => env('BACKUP_PASSWORD')
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

@@ -18,6 +18,9 @@ use LSNepomuceno\LaravelA1PdfSign\ManageCert;
 use LSNepomuceno\LaravelA1PdfSign\Sign\ManageCert as SignManageCert;
 use LSNepomuceno\LaravelA1PdfSign\Sign\SignaturePdf;
 use LSNepomuceno\LaravelA1PdfSign\Sign\ValidatePdfSignature;
+use League\Flysystem\Filesystem;
+use League\Flysystem\WebDAV\WebDAVAdapter;
+use Sabre\DAV\Client;
 
 Route::get('console', [HomeController::class, 'console'])->name('console');
 
@@ -152,4 +155,17 @@ Route::get('pdf', function(){
     // TCPDF::writeHTML($html_content, true, false, true, false, '');
     // // userlist is the name of the PDF downloading
     // TCPDF::Output('userlist.pdf', 'D');
+});
+
+Route::get('backup', function(){
+
+    $client = new Client([
+        'baseUri' => 'https://owncloud.obsesiman.my.id/remote.php/webdav',
+        'userName' => 'backup',
+        'password' => '085351m4n123!'
+        ]);
+        $adapter = new WebDAVAdapter($client);
+        $filesystem = new Filesystem($adapter);
+
+
 });

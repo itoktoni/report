@@ -28,10 +28,13 @@
         "laravel/telescope": "^4.10",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.4",
+        "league/flysystem": "^3.12",
+        "league/flysystem-webdav": "^3.12",
         "livewire/livewire": "^2.10",
         "mehradsadeghi/laravel-filter-querystring": "^1.1",
         "msztorc/laravel-env": "^1.2",
         "rennokki/laravel-eloquent-query-cache": "^3.3",
+        "sabre/dav": "^4.4",
         "spatie/simple-excel": "^3.0",
         "touhidurabir/laravel-model-sanitize": "^1.1",
         "wildside/userstamps": "^2.2"

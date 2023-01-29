@@ -41,7 +41,7 @@ class MySqlDump extends Command
             $dump = new IMysqldump\Mysqldump('mysql:host='.env('DB_HOST_SERVER').';dbname='.env('DB_DATABASE_SERVER').'', env('DB_USERNAME_SERVER'), env('DB_PASSWORD_SERVER'), $dumpSettingsDefault);
             $dump->start(__DIR__.'../../../../'.env('BACKUP_PATH').$name.'.gzip');
 
-            $this->info('Backup Finish');
+            $this->info('Backup Finish '.$name.'.gzip');
 
         } catch (\Exception $e) {
             $errror = 'mysqldump-php error: ' . $e->getMessage();
