@@ -10,6 +10,7 @@ use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Plugins\Core;
 use Plugins\Helper;
@@ -160,6 +161,7 @@ Route::get('pdf', function(){
 
 Route::get('backup', function(){
 
+    Log::info('artisan call');
     Artisan::call('db:backup');
 
 });

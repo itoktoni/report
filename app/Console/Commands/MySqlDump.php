@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Ifsnop\Mysqldump as IMysqldump;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class MySqlDump extends Command
@@ -31,6 +32,7 @@ class MySqlDump extends Command
     public function handle()
     {
         $this->info('Backup Start');
+        Log::info('Log Start');
         $name = date('Y-m-d-His').'_backup_database.gzip';
 
         try {
