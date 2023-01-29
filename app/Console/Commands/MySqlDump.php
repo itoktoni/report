@@ -57,16 +57,18 @@ class MySqlDump extends Command
             ];
 
             $dump = new IMysqldump\Mysqldump('mysql:host='.env('DB_HOST_SERVER').';dbname='.env('DB_DATABASE_SERVER').'', env('DB_USERNAME_SERVER'), env('DB_PASSWORD_SERVER'), $dumpSettingsDefault);
-            $dump->start(storage_path('/app'.$name));
+            $dump->start(storage_path('app/'.$name));
 
             $this->info('Backup Databaes '.$name);
 
-            $contents = File::get(storage_path('/app'.$name));
+            $contents = File::get(storage_path('app/'.$name));
             $check = Storage::disk('backup')->put($name, $contents);
 
             if($check){
                 $this->info('Backup Finish '.$name);
             }
+
+            unlink(storage_path('app/'.$name));
 
         } catch (\Exception $e) {
             $errror = 'mysqldump-php error: ' . $e->getMessage();
