@@ -64,7 +64,7 @@ class MySqlDump extends Command
             $this->info('Backup Databaes '.$name);
 
             $contents = File::get(storage_path('app/'.$name));
-            $check = Storage::disk('backup')->put($name, $contents);
+            $check = Storage::disk('backup')->put('Backup/'.$name, $contents);
 
             if($check){
                 $this->info('Backup Finish '.$name);
