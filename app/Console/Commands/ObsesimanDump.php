@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-class MySqlDump extends Command
+class ObsesimanDump extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'db:backup';
+    protected $signature = 'db:obsesiman';
 
     /**
      * The console command description.
@@ -33,7 +33,7 @@ class MySqlDump extends Command
     {
         $this->info('Backup Start');
         Log::info('Log Start');
-        $name = date('Y-m-d-His').'_backup_database.gzip';
+        $name = date('Y-m-d-His').'_backup_obsesiman.gzip';
 
         try {
 
@@ -58,13 +58,13 @@ class MySqlDump extends Command
                 ],
             ];
 
-            $dump = new IMysqldump\Mysqldump('mysql:host='.env('DB_HOST').';dbname='.env('DB_DATABASE').'', env('DB_USERNAME'), env('DB_PASSWORD'), $dumpSettingsDefault);
+            $dump = new IMysqldump\Mysqldump('mysql:host='.env('DB_HOST_SERVER').';dbname='.env('DB_DATABASE_SERVER').'', env('DB_USERNAME_SERVER'), env('DB_PASSWORD_SERVER'), $dumpSettingsDefault);
             $dump->start(storage_path('app/'.$name));
 
             $this->info('Backup Databaes '.$name);
 
             $contents = File::get(storage_path('app/'.$name));
-            $check = Storage::disk('backup')->put('Backup/'.$name, $contents);
+            $check = Storage::disk('backup')->put('Obsesiman/'.$name, $contents);
 
             if($check){
                 $this->info('Backup Finish '.$name);
