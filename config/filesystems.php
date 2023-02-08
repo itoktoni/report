@@ -62,6 +62,13 @@ return [
             'password' => env('BACKUP_PASSWORD')
         ],
 
+        'alphara' => [
+            'driver' => 'webdav',
+            'baseUri' => env('ALPHARA_URL'),
+            'userName' => env('ALPHARA_USERNAME'),
+            'password' => env('ALPHARA_PASSWORD')
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

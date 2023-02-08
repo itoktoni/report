@@ -64,9 +64,10 @@ class MySqlDump extends Command
             $this->info('Backup Databaes '.$name);
 
             $contents = File::get(storage_path('app/'.$name));
-            $check = Storage::disk('backup')->put('Backup/'.$name, $contents);
+            $local = Storage::disk('backup')->put('Backup/'.$name, $contents);
+            $alphara = Storage::disk('alphara')->put('Report/'.$name, $contents);
 
-            if($check){
+            if($local && $alphara){
                 $this->info('Backup Finish '.$name);
             }
 

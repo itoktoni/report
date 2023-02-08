@@ -64,9 +64,10 @@ class ObsesimanDump extends Command
             $this->info('Backup Databaes '.$name);
 
             $contents = File::get(storage_path('app/'.$name));
-            $check = Storage::disk('backup')->put('Obsesiman/'.$name, $contents);
+            $local = Storage::disk('backup')->put('Obsesiman/'.$name, $contents);
+            $alphara = Storage::disk('alphara')->put('Lts/'.$name, $contents);
 
-            if($check){
+            if($local && $alphara){
                 $this->info('Backup Finish '.$name);
             }
 
