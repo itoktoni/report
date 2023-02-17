@@ -64,10 +64,10 @@ return [
             ]) : [ \PDO::ATTR_EMULATE_PREPARES => true],
         ],
 
-        'test' => [
+        'server' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => '174.138.16.66',
+            'host' => env('DB_HOST_SERVER', 'localhost'),
             'port' => env('DB_PORT_SERVER', '3306'),
             'database' => env('DB_DATABASE_SERVER', 'forge'),
             'username' => env('DB_USERNAME_SERVER', 'forge'),
