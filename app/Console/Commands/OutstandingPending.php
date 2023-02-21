@@ -39,7 +39,7 @@ class OutstandingPending extends Command
 
            $outstanding = DB::connection('server')
            ->table('linen_outstanding')
-           ->whereDate('linen_outstanding_updated_at', Carbon::now()->subMinutes(1440)->toDateString())
+           ->where('linen_outstanding_updated_at', Carbon::now()->subMinutes(1440)->toDateString())
         //    ->whereDate('linen_outstanding_updated_at', date('Y-m-d'))
            ->where('linen_outstanding_status', '!=', 6) //pending
            ->where('linen_outstanding_status', '!=', 7) //hilang

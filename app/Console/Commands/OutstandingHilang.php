@@ -40,7 +40,7 @@ class OutstandingHilang extends Command
 
            $outstanding = DB::connection('server')
            ->table('linen_outstanding')
-           ->whereDate('linen_outstanding_updated_at', '<=', Carbon::now()->subMinutes(4320)->toDateString())
+           ->where('linen_outstanding_updated_at', '<=', Carbon::now()->subMinutes(4320)->toDateString())
            ->where('linen_outstanding_status', 6) // pending
            ->get();
 
