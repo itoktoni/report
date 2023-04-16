@@ -56,7 +56,7 @@ class AppLinen extends Model
         return [
             DataBuilder::build($this->field_primary())->name('Code')->show(false)->sort(),
             DataBuilder::build($this->field_id_rs())->name('Rs')->show(false)->sort(),
-            DataBuilder::build(AppRs::field_name())->name('Rs')->show(true)->sort(),
+            DataBuilder::build('linen_nama_rs')->name('Rs')->show(true)->sort(),
             DataBuilder::build($this->field_name())->name('Name')->show(true)->sort(),
             DataBuilder::build($this->field_berat())->name('Berat')->show(true)->sort(),
         ];
