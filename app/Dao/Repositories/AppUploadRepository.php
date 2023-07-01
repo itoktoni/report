@@ -32,29 +32,29 @@ class AppUploadRepository extends MasterRepository implements CrudInterface
 
     public function deleteRepository($request)
     {
-        DB::beginTransaction();
-        try {
-            if(is_array($request)){
-                $code = $this->model->whereIn($this->model->field_primary(), $request)->pluck($this->model->field_name())->unique()->toArray();
-                $this->deleteLinen(array_values($code));
-                $this->model->destroy(array_values($request));
-            }
-            else{
-                $code = $this->model->Where($this->model->field_primary(), $request)->pluck($this->model->field_name())->toArray();
-                $this->deleteLinen(array_values($code));
-                $this->model->destroy($request);
-            }
-            DB::commit();
-            return Notes::delete($request);
-        } catch (QueryException $ex) {
-            DB::rollBack();
-            return Notes::error($ex->getMessage());
-        }
+        // DB::beginTransaction();
+        // try {
+        //     if(is_array($request)){
+        //         $code = $this->model->whereIn($this->model->field_primary(), $request)->pluck($this->model->field_name())->unique()->toArray();
+        //         $this->deleteLinen(array_values($code));
+        //         $this->model->destroy(array_values($request));
+        //     }
+        //     else{
+        //         $code = $this->model->Where($this->model->field_primary(), $request)->pluck($this->model->field_name())->toArray();
+        //         $this->deleteLinen(array_values($code));
+        //         $this->model->destroy($request);
+        //     }
+        //     DB::commit();
+        //     return Notes::delete($request);
+        // } catch (QueryException $ex) {
+        //     DB::rollBack();
+        //     return Notes::error($ex->getMessage());
+        // }
     }
 
     private function deleteLinen($data){
-        AppBersih::where(AppBersih::field_upload(), $data)->delete();
-        AppKotor::where(AppKotor::field_upload(), $data)->delete();
+        // AppBersih::where(AppBersih::field_upload(), $data)->delete();
+        // AppKotor::where(AppKotor::field_upload(), $data)->delete();
     }
 
 }
